@@ -1,6 +1,6 @@
 # vim配置与安装
 
-### screenshoot
+### screenshot
 ![screenshot](screenshot.png)
 
 vim配置其实思路很简单，无非是一个`.vimrc`文件外加各种插件。不过从一个新手开始的话还是挺折腾的。
