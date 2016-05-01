@@ -21,4 +21,5 @@ wget -qO- https://raw.github.com/xuliuchengxlc/vim/master/install.sh | sh -x
 ### 注意事项
 
 - airline插件需要字体支持，记得安装完成后在terminal的字体设置中将原有字体改为带有`for powerline`样式的字体。
-- 运行`sh ~/.vim/conf/uninstall.sh`即可卸载该配置
+- 运行`sh ~/.vim/conf/uninstall.sh`即可卸载该配置.
+- Ubuntu安装后terminal可能会显示有些异常，关闭再打开即可。
