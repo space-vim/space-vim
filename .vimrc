@@ -110,7 +110,6 @@ set tag=tags;/
 
 set completeopt=longest,menu
 
-
 set viminfo+=!
 
 set clipboard+=unnamed
@@ -188,3 +187,40 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " ======== nerdcommenter ========
 let NERDSpaceDelims=1
+
+" ======== add title automatically for new file ========
+autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+func SetTitle() 
+    if &filetype == 'sh' 
+        call setline(1,"#!/bin/bash") 
+        call append(line("."), "") 
+
+    elseif &filetype == 'python'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."), "# -*- coding: utf-8 -*-")
+        call append(line(".")+1, "") 
+
+    elseif &filetype == 'ruby'
+        call setline(1,"#!/usr/bin/env ruby")
+        call append(line("."), "# encoding: utf-8")
+        call append(line(".")+1, "") 
+
+    else 
+        call setline(1, "/*************************************************************************") 
+        call append(line("."), "    > File Name: ".expand("%")) 
+        call append(line(".")+1, "    > Created Time: ".strftime("%c")) 
+        call append(line(".")+2, " ************************************************************************/") 
+        call append(line(".")+3, "")
+    endif
+
+    if &filetype == 'cpp'
+        call append(line(".")+4, "#include<iostream>")
+        call append(line(".")+5, "using namespace std;")
+        call append(line(".")+6, "")
+    elseif &filetype == 'c'
+        call append(line(".")+4, "#include<stdio.h>")
+        call append(line(".")+5, "")
+    endif
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc 
