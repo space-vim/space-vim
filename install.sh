@@ -8,29 +8,29 @@ elif which yum >/dev/null; then
 	sudo yum install -y vim git
 fi
 
-cd $HOME
+cd ${HOME}
 
-if [ -f "$HOME/.vimrc" ]; then
-	mv -f $HOME/.vimrc $HOME/.vimrc_old
+if [ -f "${HOME}/.vimrc" ]; then
+	mv -f ${HOME}/.vimrc ${HOME}/.vimrc_old
 fi
 
-if [ -d "$HOME/.vim" ]; then
-	mv -f $HOME/.vim $HOME/.vim_old
+if [ -d "${HOME}/.vim" ]; then
+	mv -f ${HOME}/.vim ${HOME}/.vim_old
 fi
 
-if [ -d "$HOME/.fonts" ]; then
-	mv -f $HOME/.fonts $HOME/.fonts_old
+if [ -d "${HOME}/.fonts" ]; then
+	mv -f ${HOME}/.fonts ${HOME}/.fonts_old
 fi
 ####  setup vundle for vim
-git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
 
-git clone https://github.com/xuliuchengxlc/vim.git $HOME/.vim/dotfile
+git clone https://github.com/xuliuchengxlc/vim.git ${HOME}/.vim/dotfile
 
 #### fetch and install powerline fonts
-git clone https://github.com/powerline/fonts.git $HOME/.fonts
-sh $HOME/.fonts/install.sh
+git clone https://github.com/powerline/fonts.git ${HOME}/.fonts
+sh ${HOME}/.fonts/install.sh
 
-ln -s $HOME/.vim/dotfile/.vimrc $HOME/.vimrc
+ln -s ${HOME}/.vim/dotfile/.vimrc ${HOME}/.vimrc
 
 echo "********************************************** "       > xlc
 echo "********************************************** "      >> xlc
