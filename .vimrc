@@ -1,3 +1,6 @@
+" Use Vim settings rather than Vi setting.
+" This must be first, for it changes other options as a side effect.
+" Use Vundle plugin to manage all other plugins
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -50,12 +53,14 @@ filetype plugin indent on    " required
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""
+""""    General Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-""""    basic setting
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 set t_Co=256      " required for airline
+
+" This makes vim act like all other editoes, buffers can
+" exist in the background without being in a window.
+set hidden        
+
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
@@ -63,12 +68,10 @@ set langmenu=zh-CN.UTF-8
 
 colorscheme desert
 
-syntax on
+syntax on         " turn on syntax highlighting
 filetype on
 
 set autoread
-
-set smartindent    "autoindent for c
 
 set mouse=a
 set selection=exclusive
@@ -82,8 +85,8 @@ set showcmd
 set showmatch
 set matchtime=1    "time for parenthesis matching
 
-set cursorline    " highlight current line
-set cursorcolumn   
+set cursorline     " Highlight current line
+set cursorcolumn   " Highlight current column
 hi CursorColumn ctermbg=236
 hi CursorLine ctermbg=236
 
@@ -91,20 +94,22 @@ set laststatus=2    "required for airline
 
 set history=10000
 
+" ======== Turn off swap files ========
 set nobackup
 set noswapfile
-
+set nowb
 
 set report=0
 
 set wildignore=*.o,*~,*.pyc
+set wildignore+=*.png,*.jpg,*.gif
 
 set backspace=2
 
 set tag=tags;/
 
 set completeopt=longest,menu
-set wildmenu
+
 
 set viminfo+=!
 
@@ -115,25 +120,40 @@ set linespace=0
 set number
 set showmatch
 set matchtime=1
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
+
 set winminheight=0
 set wildmode=list:longest,full
+set wildmenu
 set whichwrap+=<,>,[,],h,l,b,s
 set scrolljump=5
 set scrolloff=3
 
-set nowrap
+" ======== Indentation ========
 set autoindent
-set expandtab
-set tabstop=4
+set smartindent 
 set softtabstop=4
 set shiftwidth=4
+set tabstop=4
+set expandtab
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap p p=`]<C-o>
+
+filetype plugin on
+filetype indent on
+
+set nowrap      " Don't wrap lines 
+set linebreak   " Wrap lines at convennient points
+
+" ======== Search ========
+set hlsearch     " Find the next match as we type the search
+set incsearch    " Highlight searches by default
+set ignorecase   " Ignore case when searching...
+set smartcase    " ...unless we type a capital
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    key mapping
+""""    Key Mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader="\<Space>"
 nmap <leader>fs :w<cr>
@@ -143,35 +163,28 @@ nmap <leader>d  <C-d>
 nmap <leader>u  <C-u>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    airline settting
+""""    Plugin Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ======== airline =========
 let t_Co=256
 let g:airline_powerline_fonts=1
 let g:airline_theme="luna"
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#buffer_nr_show=1
-
 let g:airline#extensions#whitespce#enabled=0
 let g:airline#extensions#whitespace#symbol='!'
 let g:airline#extensions#whitespace#mixed_indent_algo=2
-
 let g:Powerline_symbols="fancy"
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    indentLine
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ======== indentLine Config ========
 let g:indentLine_enabled=1
 let g:indentLine_color_term=239
-let g:indentLine_char='|'
+let g:indentLine_char='┆'
 let g:indentLine_concealcursor='vc' " default 'inc'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    nerdtree 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ========  nerdtree ========
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""   nerdcommenter
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ======== nerdcommenter ========
 let NERDSpaceDelims=1
