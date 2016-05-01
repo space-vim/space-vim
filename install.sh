@@ -18,10 +18,17 @@ if [ -d "$HOME/.vim" ]; then
 	mv -f $HOME/.vim $HOME/.vim_old
 fi
 
+if [ -d "$HOME/.fonts" ]; then
+	mv -f $HOME/.fonts $HOME/.fonts_old
+fi
 ####  setup vundle for vim
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
 git clone https://github.com/xuliuchengxlc/vim.git $HOME/.vim/dotfile
+
+#### fetch and install powerline fonts
+git clone https://github.com/powerline/fonts.git $HOME/.fonts
+sh $HOME/.fonts/install.sh
 
 ln -s $HOME/.vim/dotfile/.vimrc $HOME/.vimrc
 
@@ -43,12 +50,8 @@ vim xlc -c "PluginInstall" -c "q" -c "q"
 
 rm xlc
 
-if [ -d "$HOME/.fonts" ]; then
-	mv -f $HOME/.fonts $HOME/.fonts_old
-fi
 
-#### fetch and install powerline fonts
-git clone https://github.com/powerline/fonts.git $HOME/.fonts
-sh $HOME/.fonts/install.sh
+
+
 
 
