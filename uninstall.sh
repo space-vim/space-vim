@@ -1,15 +1,15 @@
 #!/bin/bash
 
-rm -f ~/.vimrc
-rm -rf ~/.vim
+rm -f $HOME/.vimrc
+rm -rf $HOME/.vim
 
 
-if [ -f "~/.vimrc_old" ]; then
-	mv -f ~/.vimrc_old ~/.vimrc
+if [ -f "$HOME/.vimrc_old" ]; then
+	mv -f $HOME/.vimrc_old $HOME/.vimrc
 fi
 
-if [ -d "~/.vim_old" ]; then
-	mv -f ~/.vim_old ~/.vim
+if [ -d "$HOME/.vim_old" ]; then
+	mv -f $HOME/.vim_old $HOME/.vim
 fi
 
 
