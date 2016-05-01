@@ -17,11 +17,19 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 git clone https://github.com/xuliuchengxlc/dotfile.git ~/.dotfile
 
 ln -s ~/.dotfile/vim/.vimrc ~/.vimrc
-
-echo "installing plugins" > xlc
+echo "***************************************" > xlc
+echo "installing plugins" >> xlc
 echo "It will quit automatically when the whole plugins are installed" >> xlc
 echo "Please be patient..." >> xlc
+echo "***************************************" >> xlc
+#### install plugins
 vim xlc -c "PluginInstall" -c "q" -c "q"
+
 rm xlc
 
-echo "done!"
+#### fetch and install powerline fonts
+git clone https://github.com/powerline/fonts.git ~/.fonts
+sh ~/.fonts/install.sh
+
+echo "****     almost done!    ****" 
+echo "The last thing is to change the font of terminal to those for powerline, otherwise some characters maybe abnormal."
