@@ -55,7 +55,7 @@ filetype plugin indent on    " required
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 """"    General Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256      " required for airline
+set t_Co=256       " required for airline
 
 " This makes vim act like all other editoes, buffers can
 " exist in the background without being in a window.
@@ -68,10 +68,11 @@ set langmenu=zh-CN.UTF-8
 
 colorscheme desert
 
-syntax on         " turn on syntax highlighting
+syntax on           " turn on syntax highlighting
 filetype on
 
 set autoread
+set autowrite
 
 set mouse=a
 set selection=exclusive
@@ -83,10 +84,10 @@ set ruler
 set showcmd
 
 set showmatch
-set matchtime=1    "time for parenthesis matching
+set matchtime=1     "time for parenthesis matching
 
-set cursorline     " Highlight current line
-set cursorcolumn   " Highlight current column
+set cursorline      " Highlight current line
+set cursorcolumn    " Highlight current column
 hi CursorColumn ctermbg=236
 hi CursorLine ctermbg=236
 
@@ -101,8 +102,8 @@ set nowb
 
 set report=0
 
-set wildignore=*.o,*~,*.pyc
-set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
 
 set backspace=2
 
@@ -161,6 +162,9 @@ nmap <leader>Q  :q!<cr>
 nmap <leader>d  <C-d>
 nmap <leader>u  <C-u>
 
+map <F3> :NERDTreeToggle<cr>
+map <F12> gg=G
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"    Plugin Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -178,12 +182,20 @@ let g:Powerline_symbols="fancy"
 " ======== indentLine Config ========
 let g:indentLine_enabled=1
 let g:indentLine_color_term=239
-let g:indentLine_char='┆'
+let g:indentLine_char='┊'
 let g:indentLine_concealcursor='vc' " default 'inc'
 
 " ========  nerdtree ========
+if has("autocmd")
+      autocmd BufReadPost *
+          \ if line("'\"") > 0 && line("'\"") <= line("$") |
+          \   exe "normal g`\"" |
+          \ endif
+endif
+
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " ======== nerdcommenter ========
 let NERDSpaceDelims=1
