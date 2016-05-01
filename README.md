@@ -16,11 +16,11 @@ vim配置其实思路很简单，无非是一个`.vimrc`文件外加各种插件
 
 #### curl
 `
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/xuliuchengxlc/vim/master/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/xuliuchengxlc/vim/master/install.sh)"
 `
 #### wget
 `
-sh -c "$(wget https://raw.githubusercontent.com/xuliuchengxlc/vim/master/install.sh -O -)"
+sh -c "$(wget https://raw.github.com/xuliuchengxlc/vim/master/install.sh -O -)"
 `
 
 ### 注意事项
