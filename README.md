@@ -14,8 +14,13 @@ vim配置其实思路很简单，无非是一个`.vimrc`文件外加各种插件
 
 在终端中运行下面的命令即可一键安装(完成后还需小小的设置一下)：
 
+#### curl
 `
-wget -qO- https://raw.github.com/xuliuchengxlc/vim/master/install.sh | sh -x
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/xuliuchengxlc/vim/master/install.sh)"
+`
+#### wget
+`
+sh -c "$(wget https://raw.githubusercontent.com/xuliuchengxlc/vim/master/install.sh -O -)"
 `
 
 ### 注意事项
