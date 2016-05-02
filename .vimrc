@@ -156,7 +156,9 @@ set incsearch    " Highlight searches by default
 set ignorecase   " Ignore case when searching...
 set smartcase    " ...unless we type a capital
 " 设置search时搜索结果高亮的前景色与背景色
+" 输入:hi 即可查看所有高亮的颜色设置
 hi Search term=standout ctermfg=52 ctermbg=11
+hi IncSearch term=reverse cterm=bold ctermfg=53
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"    Key Mapping
