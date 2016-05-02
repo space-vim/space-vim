@@ -16,12 +16,15 @@ Plugin 'VundleVim/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'easymotion/vim-easymotion'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
 Plugin 'Yggdroot/indentLine'
+
 
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
@@ -68,7 +71,8 @@ set langmenu=zh-CN.UTF-8
 
 colorscheme desert
 
-syntax on           " turn on syntax highlighting
+syntax enable      " turn on syntax highlighting66
+syntax on           
 filetype on
 
 set autoread
@@ -156,11 +160,17 @@ set smartcase    " ...unless we type a capital
 """"    Key Mapping
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader="\<Space>"
+
 nmap <leader>fs :w<cr>
 nmap <leader>q  :q<cr>
-nmap <leader>Q  :q!<cr>
+nmap <leader>Q  :qa!<cr>
 nmap <leader>d  <C-d>
 nmap <leader>u  <C-u>
+
+" 将选中文本块复制至系统剪贴板
+vnoremap <leader>y "+y
+" 将系统剪贴板内容粘贴至vim
+nmap <leader>p "+p
 
 map <F3> :NERDTreeToggle<cr>
 map <F12> gg=G
@@ -186,6 +196,8 @@ let g:indentLine_char='┊'
 let g:indentLine_concealcursor='vc' " default 'inc'
 
 " ========  nerdtree ========
+let NERDTreeShowHidden=1 " 显示隐藏文件
+let NERDTreeAutoDeleteBuffer=1 " 删除文件时自动删除文件对应buffer
 if has("autocmd")
       autocmd BufReadPost *
           \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -198,6 +210,9 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " ======== nerdcommenter ========
+" Usage: <leader>cc : 注释当前行
+"        <leader>cs : 优雅地注释
+"        <leader>cu : 取消注释
 let NERDSpaceDelims=1
 
 " ======== add title automatically for new file ========
