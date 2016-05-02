@@ -147,14 +147,16 @@ nnoremap p p=`]<C-o>
 filetype plugin on
 filetype indent on
 
-set nowrap      " Don't wrap lines 
-set linebreak   " Wrap lines at convennient points
+set nowrap       " Don't wrap lines 
+set linebreak    " Wrap lines at convennient points
 
 " ======== Search ========
 set hlsearch     " Find the next match as we type the search
 set incsearch    " Highlight searches by default
 set ignorecase   " Ignore case when searching...
 set smartcase    " ...unless we type a capital
+" 设置search时搜索结果高亮的前景色与背景色
+hi Search term=standout ctermfg=52 ctermbg=11
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"    Key Mapping
@@ -196,8 +198,8 @@ let g:indentLine_char='┊'
 let g:indentLine_concealcursor='vc' " default 'inc'
 
 " ========  nerdtree ========
-let NERDTreeShowHidden=1 " 显示隐藏文件
-let NERDTreeAutoDeleteBuffer=1 " 删除文件时自动删除文件对应buffer
+let NERDTreeShowHidden=1            " 显示隐藏文件
+let NERDTreeAutoDeleteBuffer=1      " 删除文件时自动删除文件对应buffer
 if has("autocmd")
       autocmd BufReadPost *
           \ if line("'\"") > 0 && line("'\"") <= line("$") |
