@@ -18,13 +18,14 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 
 Plugin 'easymotion/vim-easymotion'
-Plugin `Raimondi/delimitMate`
+Plugin 'Raimondi/delimitMate'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin `scrooloose/syntastic`
-Plugin `kevinw/pyflakes-vim`
+Plugin 'scrooloose/syntastic'
+Plugin 'kevinw/pyflakes-vim'
+Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Yggdroot/indentLine'
 
@@ -94,8 +95,8 @@ set matchtime=1     "time for parenthesis matching
 
 set cursorline      " Highlight current line
 set cursorcolumn    " Highlight current column
-hi CursorColumn ctermbg=236
-hi CursorLine ctermbg=236
+hi CursorColumn ctermbg=239
+hi CursorLine ctermbg=239
 
 set laststatus=2    "required for airline
 
@@ -148,6 +149,7 @@ nnoremap p p=`]<C-o>
 
 filetype plugin on
 filetype indent on
+filetype indent plugin on
 
 set nowrap       " Don't wrap lines 
 set linebreak    " Wrap lines at convennient points
@@ -220,6 +222,9 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "        <leader>cs : 优雅地注释
 "        <leader>cu : 取消注释
 let NERDSpaceDelims=1
+
+" ======== delimitMate ========
+let delimitMate_expand_cr=1
 
 " ======== add title automatically for new file ========
 autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
