@@ -97,6 +97,8 @@ set cursorline      " Highlight current line
 set cursorcolumn    " Highlight current column
 hi CursorColumn ctermbg=239
 hi CursorLine ctermbg=239
+autocmd InsertLeave * se nocul
+autocmd InsertEnter * se cul
 
 set laststatus=2    "required for airline
 
@@ -120,6 +122,7 @@ set completeopt=longest,menu
 
 set viminfo+=!
 
+" 共享剪贴板
 set clipboard+=unnamed
 
 set backspace=indent,eol,start
@@ -131,7 +134,8 @@ set matchtime=1
 set winminheight=0
 set wildmode=list:longest,full
 set wildmenu
-set whichwrap+=<,>,[,],h,l,b,s
+" not recommended
+"set whichwrap+=<,>,[,],h,l,b,s
 set scrolljump=5
 set scrolloff=3
 
@@ -175,6 +179,17 @@ nmap <leader>Q  :qa!<cr>
 nmap <leader>d  <C-d>
 nmap <leader>u  <C-u>
 
+" Treat long lines ad break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" 映射全选加复制 Ctrl+a
+map <C-a> ggVGY
+map! <C-a> <Esc>ggVGY
+
 " 将选中文本块复制至系统剪贴板
 vnoremap <leader>y "+y
 " 将系统剪贴板内容粘贴至vim
@@ -206,12 +221,12 @@ let g:indentLine_concealcursor='vc' " default 'inc'
 " ========  nerdtree ========
 let NERDTreeShowHidden=1            " 显示隐藏文件
 let NERDTreeAutoDeleteBuffer=1      " 删除文件时自动删除文件对应buffer
-if has("autocmd")
-      autocmd BufReadPost *
-          \ if line("'\"") > 0 && line("'\"") <= line("$") |
-          \   exe "normal g`\"" |
-          \ endif
-endif
+" if has("autocmd")
+"       autocmd BufReadPost *
+          " \ if line("'\"") > 0 && line("'\"") <= line("$") |
+          " \   exe "normal g`\"" |
+          " \ endif
+" endif
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -225,6 +240,38 @@ let NERDSpaceDelims=1
 
 " ======== delimitMate ========
 let delimitMate_expand_cr=1
+
+" ======== syntastic ========
+" 每次调用:SyntasticSetLocList ，将错误覆盖 **quickfix**
+let g:syntastic_always_populate_loc_list=1
+" 自动拉起/关闭错误窗口，不需要手动调用:Errors
+let g:syntastic_auto_loc_list=1
+" 打开文件的时候做检查
+let g:syntastic_check_on_open=1
+" 每次保存的时候做检查
+let g:syntastic_check_on_wq=1
+let g:syntastic_enable_highlighting=1
+let g:syntastic_python_checkers=['pyflakes']  " 使用pyflakes 比pylint快, 需要pip安装pyflakes，
+let g:syntastic_javascript_checkers=['jsl', 'jshint']
+let g:syntastic_html_checkers=['tidy', 'jshint']
+
+" 修改高亮的背景色
+hi SyntasticErrorSign guifg=red guibg=black
+"hi SyntasticWarnSign guifg=yellow guibg=black
+
+set statusline+=%{SyntasticStatusLineFlag()}
+" 配置error-sign
+let g:syntastic_error_symbol='EE'
+let g:syntastic_style_error_symbol='E'
+let g:syntastic_warning_symbol='WW'
+let g:syntastic_style_warning_symbol='W'
+let g:syntastic_aggregate_errors=1
+
+map <leader>e :Errors<cr>
+map <leader>st :SyntasticToggleMode<cr> " 开启/关闭syntastic
+map <leader>sc :SyntasticCheck<cr>      " 手动调用语法检查
+map <leader>si :SyntasticInfo<cr>       " 列出当前状态和可用check
+map <leader>sr :SyntasticReset<cr>      " 清空错误信息
 
 " ======== add title automatically for new file ========
 autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
@@ -262,3 +309,4 @@ func SetTitle()
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
 endfunc 
+
