@@ -11,6 +11,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'luochen1990/rainbow'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -18,7 +19,6 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'kevinw/pyflakes-vim'
-Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Yggdroot/indentLine'
@@ -36,9 +36,9 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    General Config
-""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ====================================================
+" ========    General Config
+" ====================================================
 set t_Co=256       " required for airline
 
 " This makes vim act like all other editoes, buffers can
@@ -63,7 +63,8 @@ set mouse=a
 set selection=exclusive
 set selectmode=mouse,key
 
-set paste
+" set paste会导致YCM的tab补全失效,导致delimitMate失效
+" set paste
 
 set ruler
 set showcmd
@@ -75,6 +76,7 @@ set cursorline      " Highlight current line
 set cursorcolumn    " Highlight current column
 hi CursorColumn ctermbg=239
 hi CursorLine ctermbg=240
+hi MatchParen cterm=bold ctermfg=gray ctermbg=green
 autocmd InsertLeave * se nocul
 autocmd InsertEnter * se cul
 
@@ -146,9 +148,9 @@ set smartcase    " ...unless we type a capital
 hi Search term=standout ctermfg=52 ctermbg=11
 hi IncSearch term=reverse cterm=bold ctermfg=53
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    Key Mapping
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ======================================================
+" =========    Key Mapping
+" ======================================================
 let mapleader="\<Space>"
 
 nmap <leader>fs :w<cr>
@@ -172,16 +174,17 @@ map! <C-a> <Esc>ggVGY
 vnoremap <leader>y "+y
 " 将系统剪贴板内容粘贴至vim
 nmap <leader>p "+p
-
+" F3分配给NERDTree
 map <F3> :NERDTreeToggle<cr>
+" f8分配给graphviz的dot命令，绘图
+map <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""    Plugin Config
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" =====================================================
+" ========    Plugin Config
+" =====================================================
 
-" ================================
-" ========    airline    =========
-" ================================
+" ========    airline                 =========
+" ========    状态栏美化              =========
 let t_Co=256
 let g:airline_powerline_fonts=1
 let g:airline_theme="luna"
@@ -192,17 +195,15 @@ let g:airline#extensions#whitespace#symbol='!'
 let g:airline#extensions#whitespace#mixed_indent_algo=2
 let g:Powerline_symbols="fancy"
 
-" =========================================
-" ========    indentLine Config    ========
-" =========================================
+" ========    indentLine Config       ========
+" ========    显示代码缩进            ========
 let g:indentLine_enabled=1
 let g:indentLine_color_term=239
 let g:indentLine_char='┊'
 let g:indentLine_concealcursor='vc' " default 'inc'
 
-" =================================
-" ========     nerdtree    ========
-" =================================
+" ========    nerdtree                ========
+" ========    文件浏览                ========
 let NERDTreeShowHidden=1            " 显示隐藏文件
 let NERDTreeAutoDeleteBuffer=1      " 删除文件时自动删除文件对应buffer
 
@@ -210,20 +211,46 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" =====================================
-" ========    nerdcommenter    ========
-" =====================================
+" ========    nerdcommenter           ========
+" ========    快速注释代码            ========
 " Usage: <leader>cc : 注释当前行
 "        <leader>cs : 优雅地注释
 "        <leader>cu : 取消注释
 let NERDSpaceDelims=1
 
-" ======== delimitMate ========
+" ========    delimitMate             ========
+" ========    括号、引号等自动补全    ========
 let delimitMate_expand_cr=1
 
-" ======== vim-trailing-whitespace ========
-" ======== 去除行尾多余的空格      ========
+" ========    vim-trailing-whitespace ========
+" ========    去除行尾多余的空格      ========
 map <leader>tr :FixWhitespace<cr>
+
+" ========    rainbow                 ========
+" ========    彩虹括号                ========
+let g:rainbow_active=1
+let g:rainbow_conf = {
+            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+            \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+            \   'operators': '_,_',
+            \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+            \   'separately': {
+            \       '*': {},
+            \       'tex': {
+            \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+            \       },
+            \       'lisp': {
+            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+            \       },
+            \       'vim': {
+            \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+            \       },
+            \       'html': {
+            \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+            \       },
+            \       'css': 0,
+            \   }
+            \}
 
 " ===================================
 " ========     syntastic     ========
@@ -271,6 +298,8 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/dotfile/.ycm_extra_conf.py'
 " g:syntastic_warning_symbol 和 g:syntastic_error_symbol 这两个为准
 let g:ycm_error_symbol='✘✘'
 let g:ycm_warning_symbol='✘*'
+" 不设置该选项YCM会经常crashed
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " 输入第2个字符开始补全
@@ -300,6 +329,7 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <leader>yd :YcmDebugInfo<CR>
 nnoremap <leader>yr :YcmRestartServer<CR>
 
+" ======================================================
 " ======== add title automatically for new file ========
 " ======================================================
 autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
