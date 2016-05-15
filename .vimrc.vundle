@@ -1,0 +1,17 @@
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'luochen1990/rainbow'
+Plugin 'Raimondi/delimitMate'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'kevinw/pyflakes-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Yggdroot/indentLine'
+
+Plugin 'L9'

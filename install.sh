@@ -31,6 +31,8 @@ git clone https://github.com/powerline/fonts.git ${HOME}/.fonts
 sh ${HOME}/.fonts/install.sh
 
 ln -s ${HOME}/.vim/dotfile/.vimrc ${HOME}/.vimrc
+ln -s ${HOME}/.vim/dotfile/.vimrc.vundle ${HOME}/.vimrc.vundle
+ln -s ${HOME}/.vim/dotfile/.vimrc.conf ${HOME}/.vimrc.conf
 
 echo "********************************************** "       > xlc
 echo "********************************************** "      >> xlc
