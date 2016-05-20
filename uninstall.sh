@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm -f ${HOME}/.vimrc
+rm -f ${HOME}/.vimrc*
 rm -rf ${HOME}/.vim
 
 
