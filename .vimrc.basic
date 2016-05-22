@@ -1,0 +1,313 @@
+" ====================================================
+" ========    Basic Config
+" ====================================================
+set t_Co=256       " required for airline
+
+" This makes vim act like all other editoes, buffers can
+" exist in the background without being in a window.
+set hidden
+
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+set langmenu=zh-CN.UTF-8
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+colorscheme desert
+
+syntax enable      " turn on syntax highlighting66
+" syntax on
+filetype on
+
+set autoread
+set autowrite
+
+set mouse=a
+set selection=exclusive
+set selectmode=mouse,key
+
+" set paste会导致YCM的tab补全失效,导致delimitMate失效
+" set paste
+
+set ruler
+set showcmd
+
+set showmatch
+set matchtime=1     "time for parenthesis matching
+
+set cursorline      " Highlight current line
+set cursorcolumn    " Highlight current column
+hi CursorColumn ctermbg=239
+hi CursorLine ctermbg=240
+hi MatchParen cterm=bold ctermfg=gray ctermbg=green
+autocmd InsertLeave * se nocul
+autocmd InsertEnter * se cul
+
+set laststatus=2    "required for airline
+
+set history=10000
+
+" ======== Turn off swap files ========
+set nobackup
+set noswapfile
+set nowb
+
+set report=0
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
+
+set backspace=2
+
+set tag=tags;/
+
+set completeopt=longest,menu
+
+set viminfo+=!
+
+" 共享系统剪贴板
+set clipboard+=unnamed
+
+set backspace=indent,eol,start
+set linespace=0
+set number
+set showmatch
+set matchtime=1
+
+set winminheight=0
+set wildmode=list:longest,full
+set wildmenu
+" not recommended
+"set whichwrap+=<,>,[,],h,l,b,s
+set scrolljump=5
+set scrolloff=3
+
+" ======== Indentation ========
+set autoindent
+set smartindent
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set expandtab
+
+" Auto indent pasted text
+nnoremap p p=`]<C-o>
+nnoremap p p=`]<C-o>
+
+set nowrap       " Don't wrap lines
+set linebreak    " Wrap lines at convennient points
+
+" ======== Search ========
+set hlsearch     " Find the next match as we type the search
+set incsearch    " Highlight searches by default
+set ignorecase   " Ignore case when searching...
+set smartcase    " ...unless we type a capital
+" 设置search时搜索结果高亮的前景色与背景色
+" 输入:hi 即可查看所有高亮的颜色设置
+hi Search term=standout ctermfg=52 ctermbg=11
+hi IncSearch term=reverse cterm=bold ctermfg=53
+
+" ======================================================
+" =========    Key Mapping
+" ======================================================
+" 设置前缀键为空格键，与spacemacs一样
+let mapleader="\<Space>"
+
+nmap <leader>q  :q<cr>
+nmap <leader>Q  :qa!<cr>
+nmap <leader>d  <C-d>
+nmap <leader>u  <C-u>
+
+" ========  文件操作  ========
+" file save
+nmap <leader>fs :w<cr>
+" file dotfile edit
+map <silent> <leader>fde :e ~/.vimrc.conf<cr>
+" file dotfile refresh
+map <silent> <leader>fdr :source ~/.vimrc<cr> " 快速载入 vimrc 文件
+
+" ========  窗口操作  ========
+" 分屏窗口移动, Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+" window h/j/k/l
+map <leader>wh <C-W>h
+map <leader>wj <C-W>j
+map <leader>wk <C-W>k
+map <leader>wl <C-W>l
+
+" ========  buffer 操作  ========
+" 切换前后buffer
+nnoremap <leader>bp :bprevious<cr>
+nnoremap <leader>bn :bnext<cr>
+" bd : buffer delete
+" bw : like bd, but really delete the buffer.
+" Everything related to the buffer is lost.
+" All marks in this buffer become invalid, option settings are lost, etc.
+" Don't use this unless you know what you are doing.
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bw :bw<cr>
+
+nnoremap <leader>b1 :b1<cr>
+nnoremap <leader>b2 :b2<cr>
+nnoremap <leader>b3 :b3<cr>
+nnoremap <leader>b4 :b4<cr>
+nnoremap <leader>b5 :b5<cr>
+nnoremap <leader>b6 :b6<cr>
+nnoremap <leader>b7 :b7<cr>
+nnoremap <leader>b8 :b8<cr>
+nnoremap <leader>b9 :b9<cr>
+
+" ========  tab  操作   ========
+" tab切换
+map <leader>tf :tabfirst<cr>
+map <leader>tl :tablast<cr>
+
+map <leader>tj :tabnext<cr>
+map <leader>tk :tabprev<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprev<cr>
+
+map <leader>te :tabedit<cr>
+map <leader>td :tabclose<cr>
+map <leader>tm :tabm<cr>
+
+" normal模式下切换到确切的tab
+noremap <leader>t1 1gt
+noremap <leader>t2 2gt
+noremap <leader>t3 3gt
+noremap <leader>t4 4gt
+noremap <leader>t5 5gt
+noremap <leader>t6 6gt
+noremap <leader>t7 7gt
+noremap <leader>t8 8gt
+noremap <leader>t9 9gt
+noremap <leader>tl :tablast<cr>
+
+" select all
+map <Leader>sa ggVG
+
+" 将选中文本块复制至系统剪贴板
+vnoremap <leader>y "+y
+" 将系统剪贴板内容粘贴至vim
+nmap <leader>p "+p
+
+" Toggles between the active and last active tab "
+" The first tab is always 1 "
+let g:last_active_tab = 1
+" nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
+" nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
+" vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
+nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+autocmd TabLeave * let g:last_active_tab = tabpagenr()
+
+" 新建tab  Ctrl+t
+nnoremap <C-t>     :tabnew<CR>
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+
+" Treat long lines ad break lines (useful when moving around in them)
+map j gj
+map k gk
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" 映射全选加复制 Ctrl+a
+map <C-a> ggVGY
+map! <C-a> <Esc>ggVGY
+
+"  命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+" 搜索完后按<leader>nh即可去掉高亮
+map <leader>nh :nohl<cr>
+
+" F3分配给NERDTree
+map <F3> :NERDTreeToggle<cr>
+
+" f8分配给graphviz的dot命令，绘图
+map <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr>
+
+" ======================================================
+" ======== add title automatically for new file ========
+" ======================================================
+autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
+func SetTitle()
+    if &filetype == 'sh'
+        call setline(1,"#!/bin/bash")
+        call append(line("."), "")
+
+    elseif &filetype == 'python'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."), "# -*- coding: utf-8 -*-")
+        call append(line(".")+1, "")
+
+    elseif &filetype == 'ruby'
+        call setline(1,"#!/usr/bin/env ruby")
+        call append(line("."), "# encoding: utf-8")
+        call append(line(".")+1, "")
+
+    else
+        call setline(1, "/*************************************************************************")
+        call append(line("."), "    > File Name: ".expand("%"))
+        call append(line(".")+1, "    > Created Time: ".strftime("%c"))
+        call append(line(".")+2, " ************************************************************************/")
+        call append(line(".")+3, "")
+    endif
+
+    if &filetype == 'cpp'
+        call append(line(".")+4, "#include<iostream>")
+        call append(line(".")+5, "using namespace std;")
+        call append(line(".")+6, "")
+    elseif &filetype == 'c'
+        call append(line(".")+4, "#include<stdio.h>")
+        call append(line(".")+5, "")
+    endif
+    normal G
+    normal o
+endfunc
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    " set guifont=Monaco:h14
+    set guifont＝Source\ Code\ Pro\ for\ Powerline
+    if has("gui_gtk2")   "GTK2
+        set guifont=Monaco\ 12,Monospace\ 12
+    endif
+    set guioptions-=T
+    set guioptions+=e
+    set guioptions-=r
+    set guioptions-=L
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+    set t_Co=256
+    syntax on
+    set hlsearch
+    colorscheme macvim
+    set bs=2
+    set ai
+    set ruler
+endif
+
+
+" 设置标记一列的背景颜色和数字一行颜色一致
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
+
+" for error highlight，防止错误整行标红导致看不清
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
