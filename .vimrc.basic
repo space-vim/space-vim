@@ -114,32 +114,37 @@ hi IncSearch term=reverse cterm=bold ctermfg=53
 " 设置前缀键为空格键，与spacemacs一样
 let mapleader="\<Space>"
 
+" quit, 退出
 nmap <leader>q  :q<cr>
+" 不保存直接退出
 nmap <leader>Q  :qa!<cr>
+" down, 向下移动半屏
 nmap <leader>d  <C-d>
+" up, 向上移动半屏
 nmap <leader>u  <C-u>
 
-" ========  文件操作  ========
-" file save
+" ========  文件操作        ========
+" ========  <leader>f + *   ========
+" file save, 保存文件
 nmap <leader>fs :w<cr>
-" file dotfile edit
-map <silent> <leader>fde :e ~/.vimrc.conf<cr>
-" file dotfile refresh
-map <silent> <leader>fdr :source ~/.vimrc<cr> " 快速载入 vimrc 文件
+" file dotfile basic, 打开基本配置文件.vimrc.basic
+map <silent> <leader>fde :e ~/.vimrc.basic<cr>
+" file dotfile vundle, 打开插件配置文件.vimrc.vundle
+map <silent> <leader>fdv :e ~/.vimrc.vundle<cr>
 
-" ========  窗口操作  ========
+" ========  窗口操作         =======
+" ========  <leader>w + *    =======
 " 分屏窗口移动, Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-" window h/j/k/l
+" window h/j/k/l, 使用h/j/k/l移动窗口
 map <leader>wh <C-W>h
 map <leader>wj <C-W>j
 map <leader>wk <C-W>k
 map <leader>wl <C-W>l
-
-" ========  buffer 操作  ========
+" ========  <leader>b + *   ========
 " 切换前后buffer
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
@@ -151,6 +156,7 @@ nnoremap <leader>bn :bnext<cr>
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>bw :bw<cr>
 
+" 根据buffer的数字编号进行切换
 nnoremap <leader>b1 :b1<cr>
 nnoremap <leader>b2 :b2<cr>
 nnoremap <leader>b3 :b3<cr>
@@ -161,7 +167,8 @@ nnoremap <leader>b7 :b7<cr>
 nnoremap <leader>b8 :b8<cr>
 nnoremap <leader>b9 :b9<cr>
 
-" ========  tab  操作   ========
+" ========  tab操作         =========
+" ========  <leader>t + *   =========
 " tab切换
 map <leader>tf :tabfirst<cr>
 map <leader>tl :tablast<cr>
@@ -187,12 +194,12 @@ noremap <leader>t8 8gt
 noremap <leader>t9 9gt
 noremap <leader>tl :tablast<cr>
 
-" select all
+" select all, 全选
 map <Leader>sa ggVG
 
-" 将选中文本块复制至系统剪贴板
+" yank, 将选中文本块复制至系统剪贴板
 vnoremap <leader>y "+y
-" 将系统剪贴板内容粘贴至vim
+" paste, 将系统剪贴板内容粘贴至vim
 nmap <leader>p "+p
 
 " Toggles between the active and last active tab "
@@ -226,6 +233,31 @@ cnoremap <C-e> <End>
 
 " 搜索完后按<leader>nh即可去掉高亮
 map <leader>nh :nohl<cr>
+
+" <leader>4 跳转到行尾
+map <leader>4 $
+
+" =============================================
+" ========    Plugin key mapping
+" =============================================
+" syntastic
+map <leader>e :Errors<cr>
+map <leader>st :SyntasticToggleMode<cr> " 开启/关闭syntastic
+map <leader>sc :SyntasticCheck<cr>      " 手动调用语法检查
+map <leader>si :SyntasticInfo<cr>       " 列出当前状态和可用check
+map <leader>sr :SyntasticReset<cr>      " 清空错误信息
+
+" vim-trailing-whitespace
+map <leader>tr :FixWhitespace<cr>
+
+" YouCompleteMe
+"设置跳转的快捷键，可以跳转到definition和declaration
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>yd :YcmDebugInfo<CR>
+nnoremap <leader>yr :YcmRestartServer<CR>
+
 
 " F3分配给NERDTree
 map <F3> :NERDTreeToggle<cr>

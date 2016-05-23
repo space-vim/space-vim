@@ -1,8 +1,11 @@
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'honza/vim-snippets'
+Plugin 'kevinw/pyflakes-vim'
 Plugin 'luochen1990/rainbow'
+Plugin 'Powerline/fonts'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -10,22 +13,19 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'kevinw/pyflakes-vim'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'Yggdroot/indentLine'
-
 Plugin 'L9'
 
 
 " =====================================================
-" ========    Plugin Config                 ===========
+" ========          Plugin Config           ===========
 " =====================================================
 
-" ========    airline                 =========
-" ========    状态栏美化              =========
+" ========    airline                 ========
+" ========    状态栏美化              ========
 let t_Co=256
 let g:airline_powerline_fonts=1
 let g:airline_theme="luna"
@@ -47,6 +47,7 @@ let g:indentLine_concealcursor='vc' " default 'inc'
 " ========    文件浏览                ========
 let NERDTreeShowHidden=1            " 显示隐藏文件
 let NERDTreeAutoDeleteBuffer=1      " 删除文件时自动删除文件对应buffer
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$' ]
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -65,7 +66,7 @@ let delimitMate_expand_cr=1
 
 " ========    vim-trailing-whitespace ========
 " ========    去除行尾多余的空格      ========
-map <leader>tr :FixWhitespace<cr>
+" <leader>tr
 
 " ========    ultisnips               ========
 " ========                            ========
@@ -165,11 +166,7 @@ let g:syntastic_warning_symbol='>*'
 let g:syntastic_style_warning_symbol='W'
 let g:syntastic_aggregate_errors=1
 
-map <leader>e :Errors<cr>
-map <leader>st :SyntasticToggleMode<cr> " 开启/关闭syntastic
-map <leader>sc :SyntasticCheck<cr>      " 手动调用语法检查
-map <leader>si :SyntasticInfo<cr>       " 列出当前状态和可用check
-map <leader>sr :SyntasticReset<cr>      " 清空错误信息
+
 
 " =====================================
 " ========    YouCompleteMe    ========
@@ -207,10 +204,4 @@ let g:ycm_filetype_blacklist = {
 " 修改对C函数的补全快捷键，默认是CTRL + space，修改为ALT + ;
 let g:ycm_key_invoke_completion = '<M-;>'
 
-"设置跳转的快捷键，可以跳转到definition和declaration
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>yd :YcmDebugInfo<CR>
-nnoremap <leader>yr :YcmRestartServer<CR>
 
