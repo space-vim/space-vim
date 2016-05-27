@@ -48,32 +48,32 @@ sh -c "$(wget https://raw.github.com/xuliuchengxlc/vim/master/install.sh -O -)"
 
 
 ###  简单操作
--  quit, 退出
+-  quit, 退出  
 `nmap <leader>q  :q<cr>`
-- 不保存直接退出
+- 不保存直接退出  
 `nmap <leader>Q  :qa!<cr>`
-- down, 向下移动半屏
+- down, 向下移动半屏  
 `nmap <leader>d  <C-d>`
-- up, 向上移动半屏
+- up, 向上移动半屏  
 `nmap <leader>u  <C-u>`
 
 ### 文件操作
 file, ` <leader>f + *`
-- file save, 保存文件
+- file save, 保存文件  
 `nmap <leader>fs :w<cr>`
-- file dotfile basic, 打开基本配置文件.vimrc.basic
+- file dotfile basic, 打开基本配置文件.vimrc.basic  
 `map <silent> <leader>fdb :e ~/.vimrc.basic<cr>`
-- file dotfile vundle, 打开插件配置文件.vimrc.vundle
+- file dotfile vundle, 打开插件配置文件.vimrc.vundle  
 `map <silent> <leader>fdv :e ~/.vimrc.vundle<cr>`
 
 ###  窗口操作
 window,  `<leader>w + *`
-- <leader>ww, 在所有窗口中循环移动
+- <leader>ww, 在所有窗口中循环移动  
 `map <leader>ww <C-W>w`
-- <leader>wr, window replace, 向右或向下方交换窗口
+- <leader>wr, window replace, 向右或向下方交换窗口  
 `map <leader>wr <C-W>r`
 
- 分屏窗口移动, Smart way to move between windows
+ 分屏窗口移动, Smart way to move between windows  
 - `map <C-j> <C-W>j`
 - `map <C-k> <C-W>k`
 - `map <C-h> <C-W>h`
@@ -83,51 +83,51 @@ window,  `<leader>w + *`
 ###  缓冲区操作
 buffer,` <leader>b + *`
 - 切换前后buffer
-`nnoremap <leader>bp :bprevious<cr>`
-`nnoremap <leader>bn :bnext<cr>`
-" bd : buffer delete
-" bw : like bd, but really delete the buffer.
-" Everything related to the buffer is lost.
-" All marks in this buffer become invalid, option settings are lost, etc.
-" Don't use this unless you know what you are doing.
+`nnoremap <leader>bp :bprevious<cr>`  
+`nnoremap <leader>bn :bnext<cr>`    
+" bd : buffer delete  
+" bw : like bd, but really delete the buffer.  
+" Everything related to the buffer is lost.  
+" All marks in this buffer become invalid, option settings are lost, etc.  
+" Don't use this unless you know what you are doing.  
 `nnoremap <leader>bd :bd<cr>`
 `nnoremap <leader>bw :bw<cr>`
 
 - 根据buffer的数字编号进行切换
-`nnoremap <leader>b1 :b1<cr>`
-`nnoremap <leader>b2 :b2<cr>`
-`nnoremap <leader>b3 :b3<cr>`
-`nnoremap <leader>b4 :b4<cr>`
-`nnoremap <leader>b5 :b5<cr>`
-`nnoremap <leader>b6 :b6<cr>`
-`nnoremap <leader>b7 :b7<cr>`
-`nnoremap <leader>b8 :b8<cr>`
-`nnoremap <leader>b9 :b9<cr>`
+`nnoremap <leader>b1 :b1<cr>`  
+`nnoremap <leader>b2 :b2<cr>`  
+`nnoremap <leader>b3 :b3<cr>`  
+`nnoremap <leader>b4 :b4<cr>`  
+`nnoremap <leader>b5 :b5<cr>`  
+`nnoremap <leader>b6 :b6<cr>`  
+`nnoremap <leader>b7 :b7<cr>`  
+`nnoremap <leader>b8 :b8<cr>`  
+`nnoremap <leader>b9 :b9<cr>`  
 
 ###  标签页操作
 tab,     ` <leader>t + * `
 - tab切换
-`nnoremap <leader>tf :tabfirst<cr>`
-`nnoremap <leader>tl :tablast<cr>`
+`nnoremap <leader>tf :tabfirst<cr>`  
+`nnoremap <leader>tl :tablast<cr>`  
 
-`nnoremap <leader>tj :tabnext<cr>`
-`nnoremap <leader>tk :tabprev<cr>`
-`nnoremap <leader>tn :tabnext<cr>`
-`nnoremap <leader>tp :tabprev<cr>`
+`nnoremap <leader>tj :tabnext<cr>`  
+`nnoremap <leader>tk :tabprev<cr>`  
+`nnoremap <leader>tn :tabnext<cr>`  
+`nnoremap <leader>tp :tabprev<cr>`  
 
-`nnoremap <leader>te :tabedit<cr>`
-`nnoremap <leader>td :tabclose<cr>`
-`nnoremap <leader>tm :tabm<cr>`
+`nnoremap <leader>te :tabedit<cr>`  
+`nnoremap <leader>td :tabclose<cr>`  
+`nnoremap <leader>tm :tabm<cr>`  
 
 -  normal模式下切换到确切的tab
-`nnoremap <leader>t1 1gt`
-`nnoremap <leader>t2 2gt`
-`nnoremap <leader>t3 3gt`
-`nnoremap <leader>t4 4gt`
-`nnoremap <leader>t5 5gt`
-`nnoremap <leader>t6 6gt`
-`nnoremap <leader>t7 7gt`
-`nnoremap <leader>t8 8gt`
-`nnoremap <leader>t9 9gt`
-`nnoremap <leader>tl :tablast<cr>``
+`nnoremap <leader>t1 1gt`  
+`nnoremap <leader>t2 2gt`  
+`nnoremap <leader>t3 3gt`  
+`nnoremap <leader>t4 4gt`  
+`nnoremap <leader>t5 5gt`  
+`nnoremap <leader>t6 6gt`  
+`nnoremap <leader>t7 7gt`  
+`nnoremap <leader>t8 8gt`  
+`nnoremap <leader>t9 9gt`  
+`nnoremap <leader>tl :tablast<cr>`  
 
