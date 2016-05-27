@@ -82,7 +82,7 @@ window,  `<leader>w + *`
 
 ###  缓冲区操作
 buffer,` <leader>b + *`
-- 切换前后buffer
+- 切换前后buffer  
 `nnoremap <leader>bp :bprevious<cr>`  
 `nnoremap <leader>bn :bnext<cr>`    
 " bd : buffer delete  
@@ -93,7 +93,7 @@ buffer,` <leader>b + *`
 `nnoremap <leader>bd :bd<cr>`
 `nnoremap <leader>bw :bw<cr>`
 
-- 根据buffer的数字编号进行切换
+- 根据buffer的数字编号进行切换  
 `nnoremap <leader>b1 :b1<cr>`  
 `nnoremap <leader>b2 :b2<cr>`  
 `nnoremap <leader>b3 :b3<cr>`  
