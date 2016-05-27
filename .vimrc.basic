@@ -36,13 +36,12 @@ set showcmd
 set showmatch
 set matchtime=1     "time for parenthesis matching
 
+" 高亮当前行与列
 set cursorline      " Highlight current line
 set cursorcolumn    " Highlight current column
 hi CursorColumn ctermbg=239
 hi CursorLine ctermbg=240
 hi MatchParen cterm=bold ctermfg=gray ctermbg=green
-autocmd InsertLeave * se nocul
-autocmd InsertEnter * se cul
 
 set laststatus=2    "required for airline
 
@@ -71,7 +70,10 @@ set clipboard+=unnamed
 
 set backspace=indent,eol,start
 set linespace=0
+" 显示行号
 set number
+" 启用相对行号
+set relativenumber
 set showmatch
 set matchtime=1
 
@@ -94,6 +96,13 @@ set expandtab
 " Auto indent pasted text
 nnoremap p p=`]<C-o>
 nnoremap p p=`]<C-o>
+
+" 调整缩进后自动选中，方便再次操作
+vnoremap < <gv
+vnoremap > >gv
+
+" remap U to <C-r> for easier redo, 重做
+nnoremap U <C-r>
 
 set nowrap       " Don't wrap lines
 set linebreak    " Wrap lines at convennient points
@@ -132,18 +141,20 @@ map <silent> <leader>fde :e ~/.vimrc.basic<cr>
 " file dotfile vundle, 打开插件配置文件.vimrc.vundle
 map <silent> <leader>fdv :e ~/.vimrc.vundle<cr>
 
-" ========  窗口操作         =======
+" ========  window操作         =======
 " ========  <leader>w + *    =======
 " 分屏窗口移动, Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-" window h/j/k/l, 使用h/j/k/l移动窗口
-map <leader>wh <C-W>h
-map <leader>wj <C-W>j
-map <leader>wk <C-W>k
-map <leader>wl <C-W>l
+
+" <leader>ww, 在所有窗口中循环移动
+map <leader>ww <C-W>w
+" <leader>wr, window replace, 向右或向下方交换窗口
+map <leader>wr <C-W>r
+
+" ========  buffer操作      ========
 " ========  <leader>b + *   ========
 " 切换前后buffer
 nnoremap <leader>bp :bprevious<cr>
@@ -202,6 +213,13 @@ vnoremap <leader>y "+y
 " paste, 将系统剪贴板内容粘贴至vim
 nmap <leader>p "+p
 
+" 映射全选加复制 Ctrl+a
+map <C-a> ggVGY
+map! <C-a> <Esc>ggVGY
+" Ctrl+c 复制，Ctrl+v 粘贴
+nmap <C-c> "+y
+nmap <C-v> "+p
+
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
 let g:last_active_tab = 1
@@ -212,8 +230,8 @@ nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
 " 新建tab  Ctrl+t
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-t>     <Esc>:tabnew<CR>
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-t>     <Esc>:tabnew<CR>
 
 
 " Treat long lines ad break lines (useful when moving around in them)
@@ -221,49 +239,44 @@ map j gj
 map k gk
 
 " Remap VIM 0 to first non-blank character
-map 0 ^
+" map 0 ^
+" <leader>4 跳转到行尾
+map <leader>4 $
+" <leader>6 跳转到一行的第一个非空字符
+map <leader>6 ^
 
-" 映射全选加复制 Ctrl+a
-map <C-a> ggVGY
-map! <C-a> <Esc>ggVGY
 
-"  命令行模式增强，ctrl - a到行首， -e 到行尾
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
 
 " 搜索完后按<leader>nh即可去掉高亮
 map <leader>nh :nohl<cr>
 
-" <leader>4 跳转到行尾
-map <leader>4 $
-
-" =============================================
-" ========    Plugin key mapping
-" =============================================
-" syntastic
-map <leader>e :Errors<cr>
-map <leader>st :SyntasticToggleMode<cr> " 开启/关闭syntastic
-map <leader>sc :SyntasticCheck<cr>      " 手动调用语法检查
-map <leader>si :SyntasticInfo<cr>       " 列出当前状态和可用check
-map <leader>sr :SyntasticReset<cr>      " 清空错误信息
-
-" vim-trailing-whitespace
-map <leader>tr :FixWhitespace<cr>
-
-" YouCompleteMe
-"设置跳转的快捷键，可以跳转到definition和declaration
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>yd :YcmDebugInfo<CR>
-nnoremap <leader>yr :YcmRestartServer<CR>
+" 在不关闭vim的情况下切换到shell命令行
+map <leader>sh :shell<cr>
+" 在shell里输入exit, 则退出shell切换回vim
 
 
-" F3分配给NERDTree
-map <F3> :NERDTreeToggle<cr>
+" F8分配给graphviz的dot命令，绘图
+nnoremap <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr><cr>
 
-" f8分配给graphviz的dot命令，绘图
-map <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr>
+" F5分配给编译运行功能
+nnoremap <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ -std=c++11 % -o %<"
+        exec "!time ./%<"
+    elseif &filetype == 'java'
+        exec "!javac %"
+        exec "!time java %<"
+    elseif &filetype == 'sh'
+        :!time bash %
+    elseif &filetype == 'python'
+        exec "!time python %"
+    endif
+endfunc
 
 " ======================================================
 " ======== add title automatically for new file ========
