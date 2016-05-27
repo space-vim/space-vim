@@ -120,9 +120,11 @@ hi IncSearch term=reverse cterm=bold ctermfg=53
 " ======================================================
 " =========    Key Mapping
 " ======================================================
-" 设置前缀键为空格键，与spacemacs一样
+" 设置前缀键为空格键，并在映射键的设置上吸取spacemacs的思想
 let mapleader="\<Space>"
 
+"========     简单操作          ========
+"========                       ========
 " quit, 退出
 nmap <leader>q  :q<cr>
 " 不保存直接退出
@@ -132,8 +134,8 @@ nmap <leader>d  <C-d>
 " up, 向上移动半屏
 nmap <leader>u  <C-u>
 
-" ========  文件操作        ========
-" ========  <leader>f + *   ========
+" ========  文件操作, file           ========
+" ========    <leader>f + *          ========
 " file save, 保存文件
 nmap <leader>fs :w<cr>
 " file dotfile basic, 打开基本配置文件.vimrc.basic
@@ -141,21 +143,22 @@ map <silent> <leader>fde :e ~/.vimrc.basic<cr>
 " file dotfile vundle, 打开插件配置文件.vimrc.vundle
 map <silent> <leader>fdv :e ~/.vimrc.vundle<cr>
 
-" ========  window操作         =======
-" ========  <leader>w + *    =======
+" ========  窗口操作, window        ========
+" ========    <leader>w + *         ========
+" <leader>ww, 在所有窗口中循环移动
+map <leader>ww <C-W>w
+" <leader>wr, window replace, 向右或向下方交换窗口
+map <leader>wr <C-W>r
+
 " 分屏窗口移动, Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" <leader>ww, 在所有窗口中循环移动
-map <leader>ww <C-W>w
-" <leader>wr, window replace, 向右或向下方交换窗口
-map <leader>wr <C-W>r
 
-" ========  buffer操作      ========
-" ========  <leader>b + *   ========
+" ========  缓冲区操作，buffer      ========
+" ========      <leader>b + *       ========
 " 切换前后buffer
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
@@ -178,47 +181,36 @@ nnoremap <leader>b7 :b7<cr>
 nnoremap <leader>b8 :b8<cr>
 nnoremap <leader>b9 :b9<cr>
 
-" ========  tab操作         =========
-" ========  <leader>t + *   =========
+" ========  标签页操作，tab         =========
+" ========      <leader>t + *       =========
 " tab切换
-map <leader>tf :tabfirst<cr>
-map <leader>tl :tablast<cr>
+nnoremap <leader>tf :tabfirst<cr>
+nnoremap <leader>tl :tablast<cr>
 
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprev<cr>
-map <leader>tn :tabnext<cr>
-map <leader>tp :tabprev<cr>
+nnoremap <leader>tj :tabnext<cr>
+nnoremap <leader>tk :tabprev<cr>
+nnoremap <leader>tn :tabnext<cr>
+nnoremap <leader>tp :tabprev<cr>
 
-map <leader>te :tabedit<cr>
-map <leader>td :tabclose<cr>
-map <leader>tm :tabm<cr>
+nnoremap <leader>te :tabedit<cr>
+nnoremap <leader>td :tabclose<cr>
+nnoremap <leader>tm :tabm<cr>
+
+" 新建tab  Ctrl+t
+" nnoremap <C-t>     :tabnew<CR>
+" inoremap <C-t>     <Esc>:tabnew<CR>
 
 " normal模式下切换到确切的tab
-noremap <leader>t1 1gt
-noremap <leader>t2 2gt
-noremap <leader>t3 3gt
-noremap <leader>t4 4gt
-noremap <leader>t5 5gt
-noremap <leader>t6 6gt
-noremap <leader>t7 7gt
-noremap <leader>t8 8gt
-noremap <leader>t9 9gt
-noremap <leader>tl :tablast<cr>
-
-" select all, 全选
-map <Leader>sa ggVG
-
-" yank, 将选中文本块复制至系统剪贴板
-vnoremap <leader>y "+y
-" paste, 将系统剪贴板内容粘贴至vim
-nmap <leader>p "+p
-
-" 映射全选加复制 Ctrl+a
-map <C-a> ggVGY
-map! <C-a> <Esc>ggVGY
-" Ctrl+c 复制，Ctrl+v 粘贴
-nmap <C-c> "+y
-nmap <C-v> "+p
+nnoremap <leader>t1 1gt
+nnoremap <leader>t2 2gt
+nnoremap <leader>t3 3gt
+nnoremap <leader>t4 4gt
+nnoremap <leader>t5 5gt
+nnoremap <leader>t6 6gt
+nnoremap <leader>t7 7gt
+nnoremap <leader>t8 8gt
+nnoremap <leader>t9 9gt
+nnoremap <leader>tl :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
@@ -229,10 +221,23 @@ let g:last_active_tab = 1
 nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
-" 新建tab  Ctrl+t
-" nnoremap <C-t>     :tabnew<CR>
-" inoremap <C-t>     <Esc>:tabnew<CR>
+" ========    一些零散的实用设置    =========
+" ===========================================
 
+" select all, 全选
+map <Leader>sa ggVG
+
+" yank, visual mode下将选中文本块复制至系统剪贴板
+vnoremap <leader>y "+y
+" paste, 将系统剪贴板内容粘贴至vim
+nmap <leader>p "+p
+
+" 映射全选加复制 Ctrl+a
+map <C-a> ggVGY
+map! <C-a> <Esc>ggVGY
+" Ctrl+c 复制，Ctrl+v 粘贴
+nmap <C-c> "+y
+nmap <C-v> "+p
 
 " Treat long lines ad break lines (useful when moving around in them)
 map j gj
@@ -245,8 +250,6 @@ map <leader>4 $
 " <leader>6 跳转到一行的第一个非空字符
 map <leader>6 ^
 
-
-
 " 搜索完后按<leader>nh即可去掉高亮
 map <leader>nh :nohl<cr>
 
@@ -254,7 +257,7 @@ map <leader>nh :nohl<cr>
 map <leader>sh :shell<cr>
 " 在shell里输入exit, 则退出shell切换回vim
 
-
+" F键区可以分配一些常用的命令
 " F8分配给graphviz的dot命令，绘图
 nnoremap <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr><cr>
 
@@ -280,6 +283,7 @@ endfunc
 
 " ======================================================
 " ======== add title automatically for new file ========
+" ========   新建文件时，自动添加文件头         ========
 " ======================================================
 autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
 func SetTitle()

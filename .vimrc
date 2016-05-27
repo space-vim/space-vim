@@ -8,7 +8,7 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" .vimrc.vundle 中放置所需插件
+" .vimrc.vundle 中添加所需插件
 source ~/.vimrc.vundle
 
 call vundle#end()            " required
