@@ -1,5 +1,5 @@
 " ====================================================
-" ========    Basic Config
+" ========        Basic Config            ============
 " ====================================================
 set t_Co=256       " required for airline
 
@@ -16,8 +16,8 @@ set ffs=unix,dos,mac
 
 colorscheme desert
 
-syntax enable      " turn on syntax highlighting66
-" syntax on
+syntax enable      " turn on syntax highlighting
+syntax on          " 自动语法高亮
 filetype on
 
 set autoread
@@ -43,11 +43,10 @@ hi CursorColumn ctermbg=239
 hi CursorLine ctermbg=240
 hi MatchParen cterm=bold ctermfg=gray ctermbg=green
 
-set laststatus=2    "required for airline
+set laststatus=2    "显示状态栏，airline必需,required for airline
 
 set history=10000
 
-" ======== Turn off swap files ========
 set nobackup
 set noswapfile
 set nowb
@@ -70,16 +69,14 @@ set clipboard+=unnamed
 
 set backspace=indent,eol,start
 set linespace=0
-" 显示行号
-set number
-" 启用相对行号
-set relativenumber
-set showmatch
+set number                      " 显示行号
+set relativenumber              " 启用相对行号
+set showmatch                   " 显示括号匹配情况
 set matchtime=1
 
 set winminheight=0
 set wildmode=list:longest,full
-set wildmenu
+set wildmenu                    " vim自身命令行模式智能补全
 " not recommended
 "set whichwrap+=<,>,[,],h,l,b,s
 set scrolljump=5
@@ -138,8 +135,10 @@ nmap <leader>u  <C-u>
 " ========    <leader>f + *          ========
 " file save, 保存文件
 nmap <leader>fs :w<cr>
-" file dotfile basic, 打开基本配置文件.vimrc.basic
-map <silent> <leader>fde :e ~/.vimrc.basic<cr>
+" file dotfile basic, 打开通用基本配置文件.vimrc.basic
+map <silent> <leader>fdb :e ~/.vimrc.basic<cr>
+" file dotfile extra, 打开个人基本配置文件.vimrc.extra
+map <silent> <leader>fde :e ~/.vimrc.extra<cr>
 " file dotfile vundle, 打开插件配置文件.vimrc.vundle
 map <silent> <leader>fdv :e ~/.vimrc.vundle<cr>
 
@@ -195,6 +194,7 @@ nnoremap <leader>tp :tabprev<cr>
 nnoremap <leader>te :tabedit<cr>
 nnoremap <leader>td :tabclose<cr>
 nnoremap <leader>tm :tabm<cr>
+nnoremap <leader>tl :tablast<cr>
 
 " 新建tab  Ctrl+t
 " nnoremap <C-t>     :tabnew<CR>
@@ -210,7 +210,6 @@ nnoremap <leader>t6 6gt
 nnoremap <leader>t7 7gt
 nnoremap <leader>t8 8gt
 nnoremap <leader>t9 9gt
-nnoremap <leader>tl :tablast<cr>
 
 " Toggles between the active and last active tab "
 " The first tab is always 1 "
@@ -218,9 +217,10 @@ let g:last_active_tab = 1
 " nnoremap <leader>gt :execute 'tabnext ' . g:last_active_tab<cr>
 " nnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
 " vnoremap <silent> <c-o> :execute 'tabnext ' . g:last_active_tab<cr>
-nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
+" nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
+" ===========================================
 " ========    一些零散的实用设置    =========
 " ===========================================
 
@@ -257,10 +257,7 @@ map <leader>nh :nohl<cr>
 map <leader>sh :shell<cr>
 " 在shell里输入exit, 则退出shell切换回vim
 
-" F键区可以分配一些常用的命令
-" F8分配给graphviz的dot命令，绘图
-nnoremap <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr><cr>
-
+" F键区可以分配给一些常用的功能
 " F5分配给编译运行功能
 nnoremap <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
@@ -320,6 +317,7 @@ func SetTitle()
     normal G
     normal o
 endfunc
+
 
 " Set extra options when running in GUI mode
 if has("gui_running")
