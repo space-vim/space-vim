@@ -3,3 +3,7 @@
 nnoremap <F8> :w<cr>:!dot -Tpng -o %<.png % && open %<.png<cr><cr>
 
 
+nnoremap <F7> :!latexmk -pdf -pvc %<cr>      " 用 pdflatex 编译，同时打开 PDF 浏览，并监控修改
+
+
+
