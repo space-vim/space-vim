@@ -1,11 +1,19 @@
 #!/bin/bash
 
-echo "整个安装过程可能需要花费一些时间，请耐心等待......"
+echo "安装space-vim可能需要花费一些时间，请耐心等待......"
+
 
 if which apt-get >/dev/null; then
 	sudo apt-get install -y vim git
+if which apt >/dev/null; then
+	sudo apt-get install -y vim git
 elif which yum >/dev/null; then
 	sudo yum install -y vim git
+fi
+
+#### support mac
+if which brew >/dev/null; then
+	brew install vim git
 fi
 
 cd ${HOME}
@@ -21,7 +29,7 @@ fi
 ####  setup vundle for vim
 git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
 
-git clone https://github.com/xuliuchengxlc/vim.git ${HOME}/.vim/dotfile
+git clone https://github.com/xuliuchengxlc/vim.git ${HOME}/.vim/space-vim
 
 #### fetch and install powerline fonts
 git clone https://github.com/powerline/fonts.git ${HOME}/.fonts
@@ -45,7 +53,7 @@ echo "否则airline会出现字符乱码，无法正常显示的情况。"      
 echo "********************************************** "      >> xlc
 echo "********************************************** "      >> xlc
 
-#### install plugins
+#### vundle install plugins
 vim xlc -c "PluginInstall" -c "q" -c "q"
 
 #### install powerline fonts
