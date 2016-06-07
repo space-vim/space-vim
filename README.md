@@ -10,7 +10,7 @@ vim配置其实思路很简单，无非是一个`.vimrc`文件外加各种插件
 
 有兴趣的可以直接运行下面的命令使用我的vim配置，如果想在里面加入各种插件也很方便。了解vundle怎么管理插件就行了
 
-vim的前缀键映射模仿了spacemacs的方式。
+为什么叫space-vim? 因为space-vim的前缀键映射模仿了[spacemacs](https://github.com/syl20bnr/spacemacs)的方式。
 
 
 ### 快速安装
