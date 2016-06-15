@@ -5,40 +5,38 @@ echo "安装space-vim可能需要花费一些时间，请耐心等待......"
 
 if which apt-get >/dev/null; then
 	sudo apt-get install -y vim git
-if which apt >/dev/null; then
+elif which apt >/dev/null; then
 	sudo apt-get install -y vim git
 elif which yum >/dev/null; then
 	sudo yum install -y vim git
-fi
-
 #### support mac
-if which brew >/dev/null; then
-	brew install vim git
+elif which brew >/dev/null; then
+        brew install vim git
 fi
 
-cd ${HOME}
+cd "${HOME}" || exit
 
 if [ -f "${HOME}/.vimrc" ]; then
-	mv -f ${HOME}/.vimrc ${HOME}/.vimrc_old
+	mv -f "${HOME}/.vimrc" "${HOME}/.vimrc_old"
 fi
 
 if [ -d "${HOME}/.vim" ]; then
-	mv -f ${HOME}/.vim ${HOME}/.vim_old
+	mv -f "${HOME}/.vim" "${HOME}/.vim_old"
 fi
 
 ####  setup vundle for vim
-git clone https://github.com/VundleVim/Vundle.vim.git ${HOME}/.vim/bundle/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git "${HOME}/.vim/bundle/Vundle.vim"
 
-git clone https://github.com/xuliuchengxlc/vim.git ${HOME}/.vim/space-vim
+git clone https://github.com/xuliuchengxlc/vim.git "${HOME}/.vim/space-vim"
 
 #### fetch and install powerline fonts
-git clone https://github.com/powerline/fonts.git ${HOME}/.fonts
+git clone https://github.com/powerline/fonts.git "${HOME}/.fonts"
 
-ln -s ${HOME}/.vim/dotfile/.vimrc ${HOME}/.vimrc
-ln -s ${HOME}/.vim/dotfile/.vimrc.basic ${HOME}/.vimrc.basic
-ln -s ${HOME}/.vim/dotfile/.vimrc.extra ${HOME}/.vimrc.extra
-ln -s ${HOME}/.vim/dotfile/.vimrc.vundle ${HOME}/.vimrc.vundle
-ln -s ${HOME}/.vim/dotfile/.vimrc.plugin.config ${HOME}/.vimrc.plugin.config
+ln -s "${HOME}/.vim/dotfile/.vimrc" "${HOME}/.vimrc"
+ln -s "${HOME}/.vim/dotfile/.vimrc.basic" "${HOME}/.vimrc.basic"
+ln -s "${HOME}/.vim/dotfile/.vimrc.extra" "${HOME}/.vimrc.extra"
+ln -s "${HOME}/.vim/dotfile/.vimrc.plugin.list" "${HOME}/.vimrc.plugin.list"
+ln -s "${HOME}/.vim/dotfile/.vimrc.plugin.config" "${HOME}/.vimrc.plugin.config"
 
 echo "********************************************** "       > xlc
 echo "********************************************** "      >> xlc
@@ -57,7 +55,7 @@ echo "********************************************** "      >> xlc
 vim xlc -c "PluginInstall" -c "q" -c "q"
 
 #### install powerline fonts
-sh ${HOME}/.vim/bundle/fonts/install.sh
+sh "${HOME}/.vim/bundle/fonts/install.sh"
 
 rm xlc
 

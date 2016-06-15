@@ -9,7 +9,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " .vimrc.vundle 中添加所需插件
-source ~/.vimrc.vundle
+source ~/.vimrc.plugin.list
 
 call vundle#end()            " required
 filetype plugin indent on    " required
