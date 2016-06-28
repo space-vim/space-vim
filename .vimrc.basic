@@ -1,6 +1,6 @@
-" ====================================================
-" ========        Basic Config            ============
-" ====================================================
+" ======================================================
+" ==========        Basic Config            ============
+" ======================================================
 set t_Co=256       " required for airline
 
 " This makes vim act like all other editoes, buffers can
@@ -64,6 +64,21 @@ set completeopt=longest,menu
 
 set viminfo+=!
 
+" 开启折叠功能
+set foldenable
+set foldmethod=syntax
+set foldcolumn=3
+
+" normal模式下直接按下zA即可
+" zA 递归切换折叠状态
+" zC 递归关闭折叠
+" zD 递归删除折叠
+" zE 去除所有折叠
+" zO 递归打开折叠
+" zc 关闭一个折叠
+" zd 删除一个折叠
+" zj, zk 移动光标至下一个折叠开始的地方(zj), zk同理
+
 " 共享系统剪贴板
 set clipboard+=unnamed
 
@@ -109,14 +124,15 @@ set hlsearch     " Find the next match as we type the search
 set incsearch    " Highlight searches by default
 set ignorecase   " Ignore case when searching...
 set smartcase    " ...unless we type a capital
+
 " 设置search时搜索结果高亮的前景色与背景色
 " 输入:hi 即可查看所有高亮的颜色设置
 hi Search term=standout ctermfg=52 ctermbg=11
 hi IncSearch term=reverse cterm=bold ctermfg=53
 
-" ======================================================
+" =========================================================
 " =========    Key Mapping
-" ======================================================
+" =========================================================
 " 设置前缀键为空格键，并在映射键的设置上吸取spacemacs的思想
 let mapleader="\<Space>"
 
@@ -142,12 +158,16 @@ map <silent> <leader>fde :e ~/.vimrc.extra<cr>
 " file dotfile vundle, 打开插件配置文件.vimrc.vundle
 map <silent> <leader>fdv :e ~/.vimrc.vundle<cr>
 
-" ========  窗口操作, window        ========
-" ========    <leader>w + *         ========
+" ========  窗口操作, window         ========
+" ========    <leader>w + *          ========
 " <leader>ww, 在所有窗口中循环移动
 map <leader>ww <C-W>w
 " <leader>wr, window replace, 向右或向下方交换窗口
 map <leader>wr <C-W>r
+" <leader>wc, window cancel, 关闭当前窗口
+map <leader>wc <C-W>c
+" <leader>wq, window quit, 关闭当前窗口,若是最后一个窗口则退出vim
+map <leader>wq <C-W>q
 
 " 分屏窗口移动, Smart way to move between windows
 map <C-j> <C-W>j
@@ -155,9 +175,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" :sp filename 上下分割并打开文件filename
+" :vsp filename 左右分割并打开文件filename
 
-" ========  缓冲区操作，buffer      ========
-" ========      <leader>b + *       ========
+
+" ======= 缓冲区操作, buffer         ========
+" =======     <leader>b + *          ========
 " 切换前后buffer
 nnoremap <leader>bp :bprevious<cr>
 nnoremap <leader>bn :bnext<cr>
@@ -180,8 +203,8 @@ nnoremap <leader>b7 :b7<cr>
 nnoremap <leader>b8 :b8<cr>
 nnoremap <leader>b9 :b9<cr>
 
-" ========  标签页操作，tab         =========
-" ========      <leader>t + *       =========
+" ======  标签页操作，tab          =========
+" ======      <leader>t + *        =========
 " tab切换
 nnoremap <leader>tf :tabfirst<cr>
 nnoremap <leader>tl :tablast<cr>
@@ -220,9 +243,21 @@ let g:last_active_tab = 1
 " nnoremap <silent> <leader>tt :execute 'tabnext ' . g:last_active_tab<cr>
 autocmd TabLeave * let g:last_active_tab = tabpagenr()
 
+autocmd BufRead,BufNewFile *.html set shiftwidth=2
+autocmd BufRead,BufNewFile *.c,*.cpp,*.h set shiftwidth=4
+
 " ===========================================
 " ========    一些零散的实用设置    =========
 " ===========================================
+
+" 替换操作
+" :s/old/new/
+" 将当前这一行中第一个出现的模式old改为new./(斜线)用来分割命令的各部分
+" :s/old/new/g 将当前这一行的每一个old更换成new, 而不只是第一个
+" :50,100s/old/new/g,
+" :s前可加上地址扩大有效范围，如将第50行至第100行之间的每一个出现的old更改为new
+" :1,$/old/new/g ，该命令会将整个文件的old改为new
+" 可以用%代替1,$, 因此全文更改也可写为:%s/old/new/g
 
 " select all, 全选
 map <Leader>sa ggVG
@@ -250,17 +285,18 @@ map <leader>4 $
 " <leader>6 跳转到一行的第一个非空字符
 map <leader>6 ^
 
-" 搜索完后按<leader>nh即可去掉高亮
-map <leader>nh :nohl<cr>
+" 搜索完后按<leader>hc, highlight cancel, 即可去掉高亮
+map <leader>hc :nohl<cr>
 
 " 在不关闭vim的情况下切换到shell命令行
 map <leader>sh :shell<cr>
 " 在shell里输入exit, 则退出shell切换回vim
 
 " F键区可以分配给一些常用的功能
+" 默认情况下F1为打开vim的内置帮助
 " F5分配给编译运行功能
-nnoremap <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
+nnoremap <F5> :call CompileRunGcc()<cr>
+function! CompileRunGcc()
     exec "w"
     if &filetype == 'c'
         exec "!gcc % -o %<"
@@ -276,7 +312,7 @@ func! CompileRunGcc()
     elseif &filetype == 'python'
         exec "!time python %"
     endif
-endfunc
+endfunction
 
 " Indent Python in the Google way.
 " Google Python 编程风格
@@ -321,7 +357,7 @@ let pyindent_open_paren="&sw*2"
 " ========   新建文件时，自动添加文件头         ========
 " ======================================================
 autocmd BufNewFile *.py,*.rb,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
-func SetTitle()
+function SetTitle()
     if &filetype == 'sh'
         call setline(1,"#!/bin/bash")
         call append(line("."), "")
@@ -354,33 +390,7 @@ func SetTitle()
     endif
     normal G
     normal o
-endfunc
-
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-    " set guifont=Monaco:h14
-    set guifont＝Source\ Code\ Pro\ for\ Powerline
-    if has("gui_gtk2")   "GTK2
-        set guifont=Monaco\ 12,Monospace\ 12
-    endif
-    set guioptions-=T
-    set guioptions+=e
-    set guioptions-=r
-    set guioptions-=L
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-    set t_Co=256
-    syntax on
-    set hlsearch
-    colorscheme macvim
-    set bs=2
-    set ai
-    set ruler
-endif
-
+endfunction
 
 " 设置标记一列的背景颜色和数字一行颜色一致
 hi! link SignColumn   LineNr

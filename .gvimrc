@@ -1,5 +1,5 @@
 syntax on
-" set guifont=Source\ Code\ Pro\ ExtraLight:h13
+set guifont=Source\ Code\ Pro\ ExtraLight:h13
 set background=dark
 colorscheme monokai
 
@@ -37,6 +37,6 @@ if has('win32') && has("gui_running")
     set guitablabel=%M\ %t
     set linespace=2
     set noimd
-    " set showtabline=1   " 
+    " set showtabline=1   "
     " set guioptions+=e   " 这两个设置会使得插件airline上方的buffer状态栏无法显示
 endif
