@@ -277,6 +277,9 @@ nmap <C-v> "+p
 " Treat long lines ad break lines (useful when moving around in them)
 map j gj
 map k gk
+" 当遇到没有行号的行时，gj/gk 命令会使光标按虚拟行移动，而当遇到有行号的行时，光标则按物理行移动。
+noremap <silent> <expr> j (v:count == 0 ? 'gj' : 'j')
+noremap <silent> <expr> k (v:count == 0 ? 'gk' : 'k')
 
 " Remap VIM 0 to first non-blank character
 " map 0 ^
