@@ -26,14 +26,14 @@ fi
 
 ####  setup vundle for vim
 git clone https://github.com/VundleVim/Vundle.vim.git "${HOME}/.vim/bundle/Vundle.vim"
+space_vim = "space-vim"
+git clone https://github.com/xuliuchengxlc/vim.git "${HOME}/.vim/${space_vim}"
 
-git clone https://github.com/xuliuchengxlc/vim.git "${HOME}/.vim/space-vim"
-
-ln -s "${HOME}/.vim/space-vim/.vimrc" "${HOME}/.vimrc"
-ln -s "${HOME}/.vim/space-vim/.vimrc.basic" "${HOME}/.vimrc.basic"
-ln -s "${HOME}/.vim/space-vim/.vimrc.extra" "${HOME}/.vimrc.extra"
-ln -s "${HOME}/.vim/space-vim/.vimrc.plugin.list" "${HOME}/.vimrc.plugin.list"
-ln -s "${HOME}/.vim/space-vim/.vimrc.plugin.config" "${HOME}/.vimrc.plugin.config"
+ln -s "${HOME}/.vim/${space_vim}/.vimrc"               "${HOME}/.vimrc"
+ln -s "${HOME}/.vim/${space_vim}/.vimrc.basic"         "${HOME}/.vimrc.basic"
+ln -s "${HOME}/.vim/${space_vim}/.vimrc.extra"         "${HOME}/.vimrc.extra"
+ln -s "${HOME}/.vim/${space_vim}/.vimrc.plugin.list"   "${HOME}/.vimrc.plugin.list"
+ln -s "${HOME}/.vim/${space_vim}/.vimrc.plugin.config" "${HOME}/.vimrc.plugin.config"
 
 echo "********************************************** "       > xlc
 echo "********************************************** "      >> xlc
