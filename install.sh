@@ -26,7 +26,7 @@ fi
 
 ####  setup vundle for vim
 git clone https://github.com/VundleVim/Vundle.vim.git "${HOME}/.vim/bundle/Vundle.vim"
-space_vim = "space-vim"
+space_vim='space-vim'
 git clone https://github.com/xuliuchengxlc/vim.git "${HOME}/.vim/${space_vim}"
 
 ln -s "${HOME}/.vim/${space_vim}/.vimrc"               "${HOME}/.vimrc"
